@@ -1,12 +1,35 @@
+"""One-star review of the Moon, written to the make.fun output file.
+
+The program takes no input and produces exactly one line of text:
+a 114-character review with no trailing newline.
+"""
+
 import os
 
-LINE = "1/5 stars. Promised moonlight romance; delivered a rock that photobombs telescopes and leaves at 4am. No re-orbit."
 
-def main():
-    out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
-    os.makedirs(out_dir, exist_ok=True)
-    with open(os.path.join(out_dir, "entry.txt"), "w", encoding="utf-8", newline="") as f:
-        f.write(LINE)
+def review_text():
+    """Return the review line, assembled from its three clauses."""
+    rating = "1/5 stars."
+    complaint = (
+        "Promised moonlight romance; delivered a rock that "
+        "photobombs telescopes and leaves at 4am."
+    )
+    verdict = "No re-orbit."
+    return " ".join([rating, complaint, verdict])
+
+
+def output_path():
+    """Resolve where entry.txt goes from the environment."""
+    directory = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
+    return os.path.join(directory, "entry.txt")
+
+
+def write_review(path):
+    """Create parent dirs as needed and write the line verbatim."""
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w", encoding="utf-8", newline="") as handle:
+        handle.write(review_text())
+
 
 if __name__ == "__main__":
-    main()
+    write_review(output_path())
