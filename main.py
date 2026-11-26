@@ -1,13 +1,13 @@
-"""One-star review of the Moon, written to the make.fun output file.
+"""A one-star review of the Moon, saved to the make.fun output file.
 
-The program takes no input and produces exactly one line of text:
-a 114-character review with no trailing newline.
+No input is read; the program emits a single 114-character line
+with no trailing newline at the end.
 """
 
 import os
 
 
-def review_text():
+def build_review_line():
     """Return the review line, assembled from its three clauses."""
     rating = "1/5 stars."
     complaint = (
@@ -28,7 +28,7 @@ def write_review(path):
     """Create parent dirs as needed and write the line verbatim."""
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="utf-8", newline="") as handle:
-        handle.write(review_text())
+        handle.write(build_review_line())
 
 
 if __name__ == "__main__":
